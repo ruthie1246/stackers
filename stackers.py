@@ -17,15 +17,23 @@ class stack():
     def startGame(self):
         pygame.time.set_timer(USEREVENT +1, 400)
         x = 0
-        y = 7
+        y = 7        
+
         while self.gaming:
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
-                    sense.set_pixel(x-1, y, blue)
-                    y -= 1                    
+                    sense.set_pixel(x-1, y, (0, 255, 0))
+                    if y == 7:
+                        stack_x = x
+                    else:
+                        if stack_x != x:
+                            sense.show_message("Game Over!")
+                            self.gaming = False
+                    x = 0
+                    y -=1
                     if y < 0:
+                        sense.show_message("Winner!")
                         self.gaming = False
-
                 else:
                     sense.set_pixel(x, y, blue)
                     time.sleep(0.3)
